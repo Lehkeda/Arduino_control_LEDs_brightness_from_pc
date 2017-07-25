@@ -1,6 +1,20 @@
 //#define DEBUG_MODE
+ #include <LiquidCrystal.h>
+ /*
+ * Connect following pins from your LCD to arduino as following
+ * LCD RS pin -> pin 7
+ * LCD E  pin -> pin 6
+ * LCD D4 pin -> pin 5 
+ * LCD D5 pin -> pin 4
+ * LCD D6 pin -> pin 3
+ * LCD D7 pin -> pin 2
+ * and reset of pins as you do usually !
+ */
+ LiquidCrystal lcd(7, 6, 5, 4, 3, 2);
+ 
 void setup() {
   // Open serial communications and wait for port to open:
+  lcd.begin(16, 2);
   Serial.begin(115200);
   while (!Serial) {
     ; // wait for serial port to connect. Needed for native USB port only
@@ -68,18 +82,27 @@ void loop() { // run over and over
             Serial.println("Red!");
             Serial.println(all_color);
 #endif          
+            lcd.clear();
+            lcd.print("Red -> ");
+            lcd.print(all_color.toInt());
             turnRed(all_color.toInt());
       }else if(color.equals("blu")){
 #ifdef DEBUG_MODE      
             Serial.println("Blue!");
             Serial.println(all_color);
 #endif
+            lcd.clear();
+            lcd.print("Blue -> ");
+            lcd.print(all_color.toInt());
             turnBlue(all_color.toInt());
       }else if(color.equals("gre")){
 #ifdef DEBUG_MODE      
             Serial.println("Green!");
             Serial.println(all_color);
 #endif
+            lcd.clear();
+            lcd.print("Green -> ");
+            lcd.print(all_color.toInt());  
             turnGreen(all_color.toInt());
       }
     }
